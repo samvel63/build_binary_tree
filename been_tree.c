@@ -30,10 +30,29 @@ void insert(node ** tree, int val)
 
 }
 
+void print_inorder(node * tree)
+{
+    if (tree)
+    {
+        print_inorder(tree->left);
+        printf("%d\n",tree->data);
+        print_inorder(tree->right);
+    }
+}
+
+
 int main(void)
 {
     int *list_parent_vertex;
     node *root;
 
+
+    root = NULL;
+    /* Inserting nodes into tree */
+    int ver = 0;
+    while (scanf("%d", &ver) == 1)
+        insert(&root, ver);
+    
+    print_inorder(root);
     return 0;
 }
