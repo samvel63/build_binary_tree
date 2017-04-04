@@ -67,16 +67,30 @@ int find_deep_vertex(node **tree, int ver, int deep)
         return find_deep_vertex(&((*tree)->right), ver, deep + 1);
 }
 
-void print_max_deep_vertex(int deep, int *list1, int *list2)
-{
-    while (deep != *list1) {
-        *list1++;
-        *list2++;       
+int count_same_numbers(int num, int *arr) {
+    int count = 0;
+    for (int i = 0; i < sizeof(arr) / sizeof(int); ++i) {
+        if (num == arr[i])
+            ++count;
     }
-
-    printf("Максимально глубокая нетерминальная вершина со значенем %d\n", *list2);
+    return count;
 }
 
+void print_max_deep_vertex(int deep, int *list1, int *list2)
+{
+    printf("Максимально глубокая(ие) нетерминальная(ые) вершина(ы) со значением(ями) "); 
+    int count = count_same_numbers(deep, &list1[0]);
+    for (int i = 0; i < count; ++i) {
+        while (deep != *list1) {
+            *list1++;
+            *list2++;       
+        }
+        printf("%d ", *list2);
+        *list1++;
+        *list2++;
+    }
+    printf("\n");
+}
 
 int main(void)
 {
