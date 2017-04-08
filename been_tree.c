@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #define max(a,b) ((a) > (b) ? (a) : (b))
 
@@ -40,10 +41,10 @@ int find_max_deep_nodes(node *tree, int deep)
     return max(find_max_deep_nodes(tree->left, deep + 1), find_max_deep_nodes(tree->right, deep + 1));
 }
 
-void print_not_terminal_vertices(node *tree, int cur_deep, int deep)
+int print_not_terminal_vertices(node *tree, int cur_deep, int deep)
 {
     if (!tree)
-        return 0;
+        return 1;
 
     if (cur_deep == deep) {
         printf("Вершина со значением %d является нетерминальной с максимальной глубиной.\n", tree->data);
@@ -51,10 +52,43 @@ void print_not_terminal_vertices(node *tree, int cur_deep, int deep)
         print_not_terminal_vertices(tree->left, cur_deep + 1, deep);
         print_not_terminal_vertices(tree->right, cur_deep + 1, deep);
     }
+    return 0;
+}
+
+void deltree(node * tree)
+{
+    if (tree)
+    {
+        deltree(tree->left);
+        deltree(tree->right);
+        free(tree);
+    }
+}
+
+void search(node ** tree, int val)
+{
+    if(!(*tree))
+    {
+        return;
+    }
+
+    if(val < (*tree)->data)
+    {
+        search(&((*tree)->left), val);
+    }
+    else if(val > (*tree)->data)
+    {
+        search(&((*tree)->right), val);
+    }
+    else if(val == (*tree)->data)
+    {
+        deltree(*tree);
+    }
 }
 
 int main(void)
 {
+    char s[10];
     int max_deep = 0;
 
     node *root;
@@ -62,10 +96,25 @@ int main(void)
     root = NULL;
     /* Inserting nodes into tree */
     int ver = 0;
-    while (scanf("%d", &ver) == 1)
-        insert(&root, ver);
-    max_deep = find_max_deep_nodes(root, 1);
-    print_not_terminal_vertices(root, 1, max_deep);
-    printf("%d\n", max_deep);
+    while (1) {
+        scanf("%s", s);
+        if (!strcmp(s, "insert")) {
+            //printf("ins\n");
+            while (scanf("%d", &ver))
+                insert(&root, ver);
+        } else if (!strcmp(s, "delete")) {
+            //printf("del\n");
+            while (scanf("%d", &ver))
+                search(&root, ver);
+        } else if (!strcmp(s, "quit") || !strcmp(s, "exit") ) {
+            break;
+        } else if (!strcmp(s, "run")) {
+            max_deep = find_max_deep_nodes(root, 1);
+            if (print_not_terminal_vertices(root, 1, max_deep - 1) == 1)
+                printf("В дереве нет вершин.\n");
+            }
+    }
+    
+
     return 0;
 }
