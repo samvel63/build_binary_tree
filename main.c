@@ -22,8 +22,11 @@ int main(void)
             while (scanf("%d", &ver))
                 insert(&root, ver);
         } else if (!strcmp(s, "delete") || !strcmp(s, "del")) {
-            while (scanf("%d", &ver))
-                delete_node(&root, ver);
+            node * tmp;
+            while (scanf("%d", &ver)) {
+                SearchAndDelete(&root, ver);
+            }
+
         } else if (!strcmp(s, "quit") || !strcmp(s, "exit")) {
             break;
         } else if (!strcmp(s, "run") || !strcmp(s, "r")) {
