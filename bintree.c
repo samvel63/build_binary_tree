@@ -48,36 +48,44 @@ int print_not_terminal_vertices(node * tree, int cur_deep, int deep)
     return 0;
 }
 
-void deltree(node * tree)
+node * minValueNode(node* tree)
 {
-    if (tree)
-    {
-        deltree(tree->left);
-        deltree(tree->right);
-        free(tree);
-    }
+    node* current = tree;
+ 
+    while (current->left != NULL)
+        current = current->left;
+ 
+    return current;
 }
 
-void SearchAndDelete(node ** tree, int val)
+node* deleteNode(node* root, int key)
 {
-    if(!(*tree))
+    if (root == NULL) return root;
+ 
+    if (key < root->data)
+        root->left = deleteNode(root->left, key);
+    else if (key > root->data)
+        root->right = deleteNode(root->right, key);
+    else
     {
-        return;
+        if (root->left == NULL)
+        {
+            node *temp = root->right;
+            free(root);
+            return temp;
+        }
+        else if (root->right == NULL)
+        {
+            node *temp = root->left;
+            free(root);
+            return temp;
+        }
+ 
+        node* temp = minValueNode(root->right);
+        root->data = temp->data;
+        root->right = deleteNode(root->right, temp->data);
     }
-
-    if(val < (*tree)->data)
-    {
-        SearchAndDelete(&((*tree)->left), val);
-    }
-    else if(val > (*tree)->data)
-    {
-        SearchAndDelete(&((*tree)->right), val);
-    }
-    else if(val == (*tree)->data)
-    {
-        deltree(*tree);
-        *tree = NULL;
-    }
+    return root;
 }
 
 void print_nodes(node * tree)
