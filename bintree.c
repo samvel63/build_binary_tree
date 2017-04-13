@@ -24,6 +24,7 @@ void insert(node ** tree, int val)
     {
         insert(&(*tree)->right, val);
     }
+    free(temp);
 }
 
 int find_max_deep_nodes(node * tree, int deep)
@@ -95,4 +96,13 @@ void print_nodes(node * tree)
 		printf("%d\n", tree->data);
 		print_nodes(tree->right);
 	}
+}
+
+void destroy(node *tree)
+{
+    if (tree) {
+        destroy(tree->right);
+        destroy(tree->left);
+    }
+    free(tree);
 }

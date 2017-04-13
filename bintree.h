@@ -13,5 +13,6 @@ node* deleteNode(node* root, int key);
 int find_max_deep_nodes(node *tree, int deep);
 int print_not_terminal_vertices(node *tree, int cur_deep, int deep);
 void print_nodes(node * tree);
+void destroy(node *tree);
 
 #endif

@@ -47,6 +47,6 @@ int main(void)
         }
     }
     
-
+    destroy(root);
     return 0;
 }
