@@ -48,6 +48,7 @@ int main(void)
             printf("Команды 'destroy' и 'des' удаляют все дерево.\n\n");
         } else if (!strcmp(s, "destroy") || !strcmp(s, "des")) {
             destroy(root);
+            root = NULL;
         }
     }
     
