@@ -14,7 +14,7 @@ int main(void)
     /* Inserting nodes into tree */
     int ver = 0;
 
-    printf("\nДля получения помощи в использовании программы напишите 'help'.\n\n");
+    printf("\nДля получения помощи в использовании программы напишите 'help' или 'h'.\n\n");
     while (1) {
         scanf("%s", s);
         if (!strcmp(s, "insert") || !strcmp(s, "ins")) {
@@ -25,7 +25,8 @@ int main(void)
             node * tmp;
             while (scanf("%d", &ver))
                 root = deleteNode(root, ver);
-        } else if (!strcmp(s, "quit") || !strcmp(s, "exit")) {
+        } else if (!strcmp(s, "quit") || !strcmp(s, "exit") || !strcmp(s, "q")) {
+            destroy(root);
             break;
         } else if (!strcmp(s, "run") || !strcmp(s, "r")) {
             max_deep = find_max_deep_nodes(root, 1);
@@ -38,15 +39,17 @@ int main(void)
             if (!root)
                 printf("В дереве нет вершин.\n");
             print_nodes(root);
-        } else if (!strcmp(s, "help")) {
+        } else if (!strcmp(s, "help") || !strcmp(s, "h")) {
             printf("\n\nКоманды 'insert num1 num2...' и 'ins num1 num2...' добавляют вершины в дерево.\n\n");
             printf("Команды 'delete' и 'del' удаляет вершины и все вложенные вершины.\n\n");
             printf("Команды 'print' и 'p' печатает вершины дерева.\n\n");
             printf("Команды 'run' и 'r' выводит нетерминальные вершины дерева с максимальной глубиной\n\n");
             printf("Команды 'quit', 'q' и 'exit' заканчивают работу программы.\n\n");
+            printf("Команды 'destroy' и 'des' удаляют все дерево.\n\n");
+        } else if (!strcmp(s, "destroy") || !strcmp(s, "des")) {
+            destroy(root);
         }
     }
     
-    destroy(root);
     return 0;
 }
