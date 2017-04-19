@@ -41,7 +41,7 @@ int print_not_terminal_vertices(node * tree, int cur_deep, int deep)
         return 1;
 
     if (cur_deep == deep && (tree->left || tree->right)) {
-        printf("Вершина со значением %d является нетерминальной с максимальной глубиной.\n", tree->data);
+        printf("\nВершина со значением %d является нетерминальной с максимальной глубиной.\n", tree->data);
     } else {
         print_not_terminal_vertices(tree->left, cur_deep + 1, deep);
         print_not_terminal_vertices(tree->right, cur_deep + 1, deep);
